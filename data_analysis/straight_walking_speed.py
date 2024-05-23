@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def straight_walking_speed(df):
+def straight_walking_speed(df, speed_threshold=500):
     """
     Extracts the straight walking speed (before T-entry) for each trial.
     
@@ -22,14 +22,15 @@ def straight_walking_speed(df):
         if decision == 'T-entry' and in_trial:
             # End the current trial at T-entry
             if current_trial:
-                trials.append(pd.DataFrame({'speed': current_trial}))
+                trials.append(pd.DataFrame({'speed': current_trial[1:]}))
             current_trial = []
             in_trial = False
 
         if decision is None:
             in_trial = True
-            current_trial.append(speed)
-
+            if speed < speed_threshold:
+                current_trial.append(speed)
+                
     # Append the last trial if it was not followed by a T-entry
     if current_trial:
         trials.append(pd.DataFrame({'speed': current_trial}))
@@ -53,6 +54,5 @@ def plot_straight_walking_speed(trials):
     plt.xlabel('Time')
     plt.ylabel('Head Velocity (units/s)')
     plt.title('Instantaneous Straight Walking Speed Before T-entry')
-    plt.legend()
     plt.grid(True)
     plt.show()
