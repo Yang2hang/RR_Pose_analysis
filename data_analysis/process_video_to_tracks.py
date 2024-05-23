@@ -5,7 +5,6 @@ import seaborn as sns
 import numpy as np
 from scipy.signal import find_peaks
 
-from process_video_to_tracks import process_video_to_tracks
 from transform_coordinates import transform_coordinates
 from smooth_data import smooth_data
 from label_decision import label_decision

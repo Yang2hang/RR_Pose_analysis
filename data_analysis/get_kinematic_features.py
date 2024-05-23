@@ -19,7 +19,7 @@ def get_displacement(df, bodyparts):
     for bodypart in bodyparts:
         x_col = f"warped {bodypart} x"
         y_col = f"warped {bodypart} y"
-        displacement_col = f"{bodypart}_displacement"
+        displacement_col = f"{bodypart} displacement"
         displacements = [0]  # Initial displacement is 0
 
         for i in range(1, len(df)):
@@ -47,11 +47,11 @@ def get_velocity(df, bodyparts, frame_rate, sigma=3):
         bodyparts = [bodyparts]
 
     for bodypart in bodyparts:
-        displacement_col = f"{bodypart}_displacement"
-        velocity_col = f"{bodypart}_velocity"
+        displacement_col = f"{bodypart} displacement"
+        velocity_col = f"{bodypart} velocity"
         raw_velocity = df[displacement_col] / (1 / frame_rate)
-        filtered_velocity = gaussian_filter1d(raw_velocity, sigma)
-        df[velocity_col] = filtered_velocity
+        # filtered_velocity = gaussian_filter1d(raw_velocity, sigma)
+        df[velocity_col] = raw_velocity
     return df
 
 def get_acceleration(df, bodyparts, frame_rate):
@@ -70,8 +70,8 @@ def get_acceleration(df, bodyparts, frame_rate):
         bodyparts = [bodyparts]
 
     for bodypart in bodyparts:
-        velocity_col = f"{bodypart}_velocity"
-        acceleration_col = f"{bodypart}_acceleration"
+        velocity_col = f"{bodypart} velocity"
+        acceleration_col = f"{bodypart} acceleration"
         node_velocity = df[velocity_col]
         nextframe = np.append(np.delete(node_velocity.values, 0), node_velocity.values[-1])
         acceleration = (nextframe - node_velocity) / (1 / frame_rate)
