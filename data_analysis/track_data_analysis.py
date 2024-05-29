@@ -7,7 +7,7 @@ from scipy.signal import savgol_filter
 from scipy.ndimage import gaussian_filter1d
 import os
 from scipy.interpolate import interp1d
-from h5_preprocessing import h5_preprocessing
+from video_processing.h5_preprocessing import h5_preprocessing
 
 file_path = '/home/wholebrain/sleap_models/20240402_RR_n24/Videos'
 

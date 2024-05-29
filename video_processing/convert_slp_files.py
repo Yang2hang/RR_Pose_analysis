@@ -1,16 +1,18 @@
 import os
 import subprocess
 
-def convert_slp_files(video_path):
+def convert_slp_files(video_path, logger):
     '''
-    Convert all .slp files into .h5 files
+    Convert all '_prediction.slp' files into '_analysis.h5' files
     '''
     for filename in os.listdir(video_path):
         if filename.endswith('predictions.slp'):
             input_video = os.path.join(video_path, filename)
             base, _ = os.path.splitext(filename)
-            output_path = os.path.join(video_path, base + '.analysis.h5')
-
+            output_path = os.path.join(video_path, base + '_analysis.h5')
+            
+            logger.info(f"Converting file: {filename}")
+            
             # Build the command
             command = [
                 'sleap-convert',
@@ -20,6 +22,12 @@ def convert_slp_files(video_path):
             ]
 
             # Run the command
-            subprocess.run(command, check=True)
+            try:
+                subprocess.run(command, check=True)
+                logger.info(f"Successfully converted: {filename}")
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Error converting {filename}: {e}")
+            except Exception as e:
+                logger.error(f"Unexpected error converting {filename}: {e}")
 
-    print("Convert complete for all files.")
+    logger.info("Conversion complete for all files.")

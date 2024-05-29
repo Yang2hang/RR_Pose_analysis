@@ -1,12 +1,43 @@
 import h5py
 import pandas as pd
 import numpy as np
+from scipy.interpolate import interp1d
 
-def h5_preprocessing(imput_h5):
+def fill_missing(Y, kind="linear"):
+    """Fills missing values independently along each dimension after the first."""
+    initial_shape = Y.shape
+    Y = Y.reshape((initial_shape[0], -1))
+    
+    # Interpolate along each column
+    for i in range(Y.shape[-1]):
+        y = Y[:, i]
+
+        # Build interpolant
+        x = np.flatnonzero(~np.isnan(y))
+        if len(x) > 1:  # Ensure there are enough points to interpolate
+            f = interp1d(x, y[x], kind=kind, fill_value="extrapolate", bounds_error=False)
+            
+            # Fill missing
+            xq = np.flatnonzero(np.isnan(y))
+            y[xq] = f(xq)
+
+            # Fill leading or trailing NaNs with the nearest non-NaN values
+            mask = np.isnan(y)
+            if mask.any():
+                y[mask] = np.interp(np.flatnonzero(mask), np.flatnonzero(~mask), y[~mask])
+        
+        # Save slice
+        Y[:, i] = y
+    
+    # Restore to initial shape
+    Y = Y.reshape(initial_shape)
+    return Y
+
+def h5_preprocessing(input_h5):
     '''
-    Convert HDF5 file into a CSV file, then dropNA.
+    Convert HDF5 file into a DataFrame, then fill missing values using interpolation.
     '''
-    with h5py.File(imput_h5, 'r') as f:
+    with h5py.File(input_h5, 'r') as f:
         tracks_matrix = f["tracks"][:].transpose()
         nodes = [n.decode() for n in f["node_names"][:]]
 
@@ -47,7 +78,7 @@ def h5_preprocessing(imput_h5):
         }
     )
 
-    # Clean the DataFrame by removing rows with missing data
-    df_clean = df.dropna()
+    # Fill missing values using interpolation
+    df_filled = pd.DataFrame(fill_missing(df.values, kind="linear"), columns=df.columns)
     
-    return df_clean
+    return df_filled

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.ndimage import gaussian_filter1d
 
-def get_displacement(df, bodyparts):
+def get_displacement(raw_df, bodyparts):
     """
     Calculate the displacement for the specified body parts and add them to the DataFrame.
 
@@ -13,6 +13,7 @@ def get_displacement(df, bodyparts):
     Returns:
     pandas.DataFrame: A new DataFrame with displacement columns added.
     """
+    df = raw_df.copy()
     if isinstance(bodyparts, str):
         bodyparts = [bodyparts]
 
@@ -30,7 +31,7 @@ def get_displacement(df, bodyparts):
         df[displacement_col] = displacements
     return df
 
-def get_velocity(df, bodyparts, frame_rate, sigma=3):
+def get_velocity(raw_df, bodyparts, frame_rate, sigma=3):
     """
     Calculate the velocity for the specified body parts and add them to the DataFrame.
 
@@ -43,6 +44,7 @@ def get_velocity(df, bodyparts, frame_rate, sigma=3):
     Returns:
     pandas.DataFrame: A new DataFrame with velocity columns added.
     """
+    df = raw_df.copy()
     if isinstance(bodyparts, str):
         bodyparts = [bodyparts]
 
@@ -54,7 +56,7 @@ def get_velocity(df, bodyparts, frame_rate, sigma=3):
         df[velocity_col] = raw_velocity
     return df
 
-def get_acceleration(df, bodyparts, frame_rate):
+def get_acceleration(raw_df, bodyparts, frame_rate):
     """
     Calculate the acceleration for the specified body parts and add them to the DataFrame.
 
@@ -66,6 +68,8 @@ def get_acceleration(df, bodyparts, frame_rate):
     Returns:
     pandas.DataFrame: A new DataFrame with acceleration columns added.
     """
+    df = raw_df.copy()
+
     if isinstance(bodyparts, str):
         bodyparts = [bodyparts]
 

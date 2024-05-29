@@ -1,10 +1,12 @@
 import numpy as np
 import pandas as pd
+import logging
 from scipy.interpolate import make_smoothing_spline
 
-def smooth_data(df, columns):
+def smooth_data(df, columns, logger):
     """
-    Smooths the data from the warped DataFrame df by identifying trials
+    Identify qualified trials (start with y > 90 and entered T-entry (y < 46))
+    Smooths the data from the warped df by identifying trials
     and applying a smoothing spline to each trial segment.
 
     Parameters:
@@ -23,7 +25,8 @@ def smooth_data(df, columns):
     smoothed_data_list = []
     valid_rows = []
     elapsed_times = []
-
+    total_frames = len(df)
+    
     for index, row in df.iterrows():
         y = row['warped Head y']
 
@@ -41,7 +44,7 @@ def smooth_data(df, columns):
             elapsed_times.append(elapsed_time)
 
             if not T_entry and y < 46:  # Enter T-junction
-                T_entry = True  
+                T_entry = True
             if T_entry and y > 50:  # 0_000_>0 (last + 1) frame of each trial
                 smoothing_data = {}
                 trial_len = len(range(start_index, index))
@@ -96,8 +99,10 @@ def smooth_data(df, columns):
     # Ensure the smoothed data and valid data have the same indices
     valid_df[columns] = smoothed_data[columns]
     valid_df['Elapsed Time'] = smoothed_data['Elapsed Time']
+    
+    # Calculate and log discard frames number and discard rate
+    discarded_frames = total_frames - len(valid_df)
+    discard_rate = discarded_frames / total_frames
+    logger.info(f"DataFrame processed. Discarded frames: {discarded_frames}, Discard rate: {discard_rate:.2%}")
 
     return valid_df
-
-# Usage
-# smoothed_data = smooth_data(df, columns)
