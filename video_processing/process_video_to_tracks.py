@@ -10,6 +10,11 @@ from track_videos import track_videos
 from convert_slp_files import convert_slp_files
 
 def process_video_to_tracks(video_folder, model_path):
+    '''
+    Track all videos under the input folder with the assigned model. Then output a '_predictions.slp' file and an 
+    '_analysis.h5' file for each video. Then warp the coordinates, smooth the data and calculate the kinematic 
+    parameters and output a csv file for each video.
+    '''
     # Logger setup
     logger_location = str(video_folder) + '/logger'
     if not os.path.isdir(logger_location):

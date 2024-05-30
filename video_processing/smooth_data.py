@@ -14,8 +14,7 @@ def smooth_data(df, columns, logger):
     columns: A list of columns in df to be smoothed
     
     Returns:
-    pandas.DataFrame: A new smoothed DataFrame with the same length as the original data, 
-                      containing only the rows that meet the trial requirements.
+    pandas.DataFrame: A new smoothed DataFrame containing only the rows that meet the trial requirements.
     """
     trial_num = 0
     record_trial = False

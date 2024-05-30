@@ -31,7 +31,7 @@ def get_warp_matrix(filename, logger):
 
 def transform_coordinates(h5_file, logger):
     '''
-    Apply affine transformation to the input HDF5 file to align with R2 camera oreintation
+    Apply affine transformation to the input HDF5 file to align with R2 camera orientation
     
     Return:
     a pandas DataFrame

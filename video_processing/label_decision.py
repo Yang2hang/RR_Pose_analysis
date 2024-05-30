@@ -37,9 +37,13 @@ def label_decision(df):
         elif decision == 'Acc' and x < 282:
             decision = 'quit'
 
-        # Append the decision for the current row
-        decisions.append(decision)
-
+        # Only append the decision if it has changed, otherwise append None
+        if decision != last_decision:
+            decisions.append(decision)
+            last_decision = decision
+        else:
+            decisions.append(None)     
+    
     # Add the decisions column to the DataFrame
     df['decision'] = decisions
 
