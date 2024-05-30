@@ -57,7 +57,8 @@ def process_video_to_tracks(video_folder, model_path):
             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
 
-            acceleration_df.to_csv(str(filename).split('.')[0] + '.csv')
+            output_path = os.path.join(video_folder, str(filename).split('.')[0] + '.csv')
+            acceleration_df.to_csv(output_path)
             
             logger.info(f'Preprocess done for: {str(filename).split('.')[0]}')
 
