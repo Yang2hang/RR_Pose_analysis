@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import logging
 from scipy.interpolate import make_smoothing_spline
 
 def smooth_data(df, columns, logger):
