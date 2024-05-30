@@ -23,10 +23,10 @@ def track_videos(video_path, model_path, logger):
             # Run the command
             try:
                 subprocess.run(command, check=True)
-                logger.info(f"Successfully processed: {filename}")
+                logger.info(f"Successfully processed. output: {filename + '.predictions.slp'}")
             except subprocess.CalledProcessError as e:
                 logger.error(f"Error processing {filename}: {e}")
             except Exception as e:
                 logger.error(f"Unexpected error processing {filename}: {e}")
 
-    logger.info("Tracking complete for all videos.")
+    logger.info("---Tracking complete for all videos.---")

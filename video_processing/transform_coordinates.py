@@ -10,14 +10,13 @@ def get_warp_matrix(filename, logger):
     3 key points are 3 corners of the restaurants.
     '''
     try:
-        logger.info(f"Calculating warp matrix for file: {filename}")
-        if 'R1' in str(filename):
+        if 'camR1' in str(filename):
             srcTri = np.array([[186.9, 178.3], [226, 178.3], [224, 137.6]]).astype(np.float32)
-        elif 'R2' in str(filename):
+        elif 'camR2' in str(filename):
             srcTri = np.array([[271.2, 128.3], [270.8, 95.6], [228.7, 95.3]]).astype(np.float32)
-        elif 'R3' in str(filename):
+        elif 'camR3' in str(filename):
             srcTri = np.array([[208.5, 53.5], [170, 54.5], [170.7, 89.5]]).astype(np.float32)
-        elif 'R4' in str(filename):
+        elif 'camR4' in str(filename):
             srcTri = np.array([[108.4, 119.3], [109.1, 158.5], [155.3, 159.2]]).astype(np.float32)
         else:
             logger.error(f"Cannot find warp matrix from filename {filename}")

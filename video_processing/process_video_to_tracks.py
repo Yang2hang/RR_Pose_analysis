@@ -42,7 +42,6 @@ def process_video_to_tracks(video_folder, model_path):
     
     for filename in os.listdir(video_folder):
         if filename.endswith('analysis.h5'):
-            base, extension = os.path.splitext(filename)
             
             input_h5 = os.path.join(video_folder, filename)
             # Warp all coordinates to align the videos from different cameras
@@ -58,7 +57,7 @@ def process_video_to_tracks(video_folder, model_path):
             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
 
-            acceleration_df.to_csv(str(base) + '.csv')
+            acceleration_df.to_csv(str(filename).split('.')[0] + '.csv')
             
-            logger.info(f'Preprocess done for: {str(base)}')
+            logger.info(f'Preprocess done for: {str(filename).split('.')[0]}')
 

@@ -24,10 +24,10 @@ def convert_slp_files(video_path, logger):
             # Run the command
             try:
                 subprocess.run(command, check=True)
-                logger.info(f"Successfully converted: {filename}")
+                logger.info(f"Successfully converted to: {str(filename) + '_analysis.h5'}")
             except subprocess.CalledProcessError as e:
                 logger.error(f"Error converting {filename}: {e}")
             except Exception as e:
                 logger.error(f"Unexpected error converting {filename}: {e}")
 
-    logger.info("Conversion complete for all files.")
+    logger.info("---Conversion complete for all files.---")
