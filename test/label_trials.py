@@ -13,7 +13,7 @@ def label_trials(df):
     Returns:
     pandas.DataFrame: A DataFrame with an additional column 'trial num' that labels each row with the trial number.
     """
-    trial_num = 0
+    trial_num = 1
     T_entry = False
     
     trial_labels = []
@@ -21,16 +21,12 @@ def label_trials(df):
     for index, row in df.iterrows():
         y = row['warped Head y']
         
-        if y > 90:  # Start of a new trial
+        if T_entry and y > 90:  # Start of a new trial
             trial_num += 1
             T_entry = False
         
-        if not T_entry and y < 46:  # Enter T-junction
-            T_entry = True
-
-        if T_entry and y > 90:  # Start of next trial
-            trial_num += 1
-            T_entry = False
+        elif not T_entry and y < 46:  # Enter T-junction
+            T_entry = True            
         
         # Assign the current trial number to the row
         trial_labels.append(trial_num)
