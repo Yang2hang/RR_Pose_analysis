@@ -8,6 +8,7 @@ from get_kinematic_features import get_velocity
 from get_kinematic_features import get_acceleration
 from track_videos import track_videos
 from convert_slp_files import convert_slp_files
+from label_trials import label_trials
 
 def process_video_to_tracks(video_folder, model_path):
     '''
@@ -54,11 +55,12 @@ def process_video_to_tracks(video_folder, model_path):
             
             
             smoothed_df = smooth_data(df, columns_to_smooth, logger)
+            labeled_t_df = label_trials(smoothed_df)
 
             # label decisions
-            labeled_df = label_decision(smoothed_df)
+            labeled_d_df = label_decision(labeled_t_df)
     
-            displacement_df = get_displacement(labeled_df, bodyparts)
+            displacement_df = get_displacement(labeled_d_df, bodyparts)
             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
 
