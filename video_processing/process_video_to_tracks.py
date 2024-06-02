@@ -9,6 +9,7 @@ from get_kinematic_features import get_acceleration
 from track_videos import track_videos
 from convert_slp_files import convert_slp_files
 from label_trials import label_trials
+from append_time_info import append_time_info
 
 def process_video_to_tracks(video_folder, model_path):
     '''
@@ -53,8 +54,9 @@ def process_video_to_tracks(video_folder, model_path):
             # Warp all coordinates to align the videos from different cameras
             df = transform_coordinates(input_h5, logger)
             
+            appended_df = append_time_info(df, video_folder, filename, logger)
             
-            smoothed_df = smooth_data(df, columns_to_smooth, logger)
+            smoothed_df = smooth_data(appended_df, columns_to_smooth, logger)
             labeled_t_df = label_trials(smoothed_df)
 
             # label decisions
@@ -64,7 +66,7 @@ def process_video_to_tracks(video_folder, model_path):
             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
 
-            output_path = os.path.join(video_folder, str(filename).split('.')[0] + '.csv')
+            output_path = os.path.join(video_folder, str(filename).split('.')[0] + '_time.csv')
             acceleration_df.to_csv(output_path)
             
             logger.info(f'Preprocess done for: {str(filename).split(".")[0]}')
