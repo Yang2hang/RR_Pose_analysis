@@ -25,4 +25,4 @@ labeled_df = label_decision(smoothed_df)
 
 labeled_t_df = label_trials(labeled_df)
 
-[labeled_t_df.to_csv('test_result.csv')
+labeled_t_df.to_csv('test_result.csv')

@@ -22,7 +22,7 @@ def smooth_data(df, columns, logger):
     start_index = 0
     smoothed_data_list = []
     valid_rows = []
-    elapsed_times = []
+    #elapsed_times = []
     total_frames = len(df)
     
     for index, row in df.iterrows():
@@ -35,11 +35,11 @@ def smooth_data(df, columns, logger):
                 T_entry = False
                 trial_num += 1
                 start_index = index
-                elapsed_times = []
+                #elapsed_times = []
 
         if record_trial:  # in a trial
-            elapsed_time = (index - start_index) * 1 / 30 
-            elapsed_times.append(elapsed_time)
+            #elapsed_time = (index - start_index) * 1 / 30 
+            #elapsed_times.append(elapsed_time)
 
             if not T_entry and y < 46:  # Enter T-junction
                 T_entry = True
@@ -69,9 +69,9 @@ def smooth_data(df, columns, logger):
                     T_entry = False
                     trial_num += 1
                     start_index = index
-                    elapsed_times = []
-                    elapsed_time = (index - start_index) * 1 / 30 
-                    elapsed_times.append(elapsed_time)
+                    #elapsed_times = []
+                    #elapsed_time = (index - start_index) * 1 / 30 
+                    #elapsed_times.append(elapsed_time)
 
     if record_trial:  # Deal with the last trial if still recording
         smoothing_data = {}
@@ -83,7 +83,7 @@ def smooth_data(df, columns, logger):
             smoothing_data[column] = spline(grid)
         
         smoothed_section = pd.DataFrame(smoothing_data)
-        smoothed_section['Elapsed Time'] = elapsed_times
+        #smoothed_section['Elapsed Time'] = elapsed_times
         smoothed_data_list.append(smoothed_section)
 
         # Add the valid rows to the list

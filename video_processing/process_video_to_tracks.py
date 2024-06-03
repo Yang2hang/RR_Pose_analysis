@@ -61,7 +61,7 @@ def process_video_to_tracks(video_folder, model_path):
 
             # label decisions
             labeled_d_df = label_decision(labeled_t_df)
-    
+            
             displacement_df = get_displacement(labeled_d_df, bodyparts)
             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
