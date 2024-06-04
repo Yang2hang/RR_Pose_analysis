@@ -25,7 +25,7 @@ def append_time_info(df, video_folder, filename, logger):
     csv_df = pd.read_csv(csv_file_path)
 
     # Extract the specified columns
-    columns_to_extract = ['time', 'idx', 'label', 'rel_time', 'restaurant', 'lapIndex', 'trial']
+    columns_to_extract = ['time', 'rel_time']
     extracted_df = csv_df[columns_to_extract]
 
     # Check if the number of rows match

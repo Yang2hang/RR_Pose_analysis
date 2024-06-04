@@ -1,7 +1,6 @@
 import os
 from logger import setup_logger
 from transform_coordinates import transform_coordinates
-from smooth_data import smooth_data
 from label_decision import label_decision
 from get_kinematic_features import get_displacement
 from get_kinematic_features import get_velocity
@@ -10,6 +9,7 @@ from track_videos import track_videos
 from convert_slp_files import convert_slp_files
 from label_trials import label_trials
 from append_time_info import append_time_info
+from smooth_data import smooth_data
 
 def process_video_to_tracks(video_folder, model_path):
     '''
