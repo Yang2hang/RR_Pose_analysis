@@ -17,17 +17,18 @@ def process_video_to_tracks(video_folder, model_path):
     '_analysis.h5' file for each video. Then warp the coordinates, smooth the data and calculate the kinematic 
     parameters and output a csv file for each video.
     '''
+    
     # Logger setup
     logger_location = str(video_folder) + '/logger'
     if not os.path.isdir(logger_location):
         os.makedirs(logger_location)
     logger = setup_logger(str(video_folder).split('/')[-1], logger_location)
-    
+    '''
     # Track videos
     track_videos(video_folder, model_path, logger)
 
     # Convert SLEAP files
-    convert_slp_files(video_folder, logger)
+    convert_slp_files(video_folder, logger)'''
     
     
 
@@ -57,7 +58,7 @@ def process_video_to_tracks(video_folder, model_path):
             appended_df = append_time_info(df, video_folder, filename, logger)
             
             smoothed_df = smooth_data(appended_df, columns_to_smooth, logger)
-            labeled_t_df = label_trials(smoothed_df)
+            labeled_t_df = label_trials(smoothed_df, filename)
 
             # label decisions
             labeled_d_df = label_decision(labeled_t_df)

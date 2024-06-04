@@ -48,16 +48,17 @@ def smooth_data(df, columns, logger):
                 trial_len = len(range(start_index, index))
                 grid = np.linspace(1, trial_len, trial_len)
 
-                for column in columns:
-                    smoothing_column = df[start_index:index][column]
-                    spline = make_smoothing_spline(grid, smoothing_column)
-                    smoothing_data[column] = spline(grid)
-                smoothed_section = pd.DataFrame(smoothing_data)
-                smoothed_section['Elapsed Time'] = elapsed_times[:trial_len]
-                smoothed_data_list.append(smoothed_section)
+                if len(grid) > 5:
+                    for column in columns:
+                        smoothing_column = df[start_index:index][column]
+                        spline = make_smoothing_spline(grid, smoothing_column)
+                        smoothing_data[column] = spline(grid)
+                    smoothed_section = pd.DataFrame(smoothing_data)
+                    #smoothed_section['Elapsed Time'] = elapsed_times[:trial_len]
+                    smoothed_data_list.append(smoothed_section)
 
-                # Add the valid rows to the list
-                valid_rows.extend(range(start_index, index))
+                    # Add the valid rows to the list
+                    valid_rows.extend(range(start_index, index))
 
                 # Reset all flags
                 record_trial = False
@@ -73,7 +74,7 @@ def smooth_data(df, columns, logger):
                     #elapsed_time = (index - start_index) * 1 / 30 
                     #elapsed_times.append(elapsed_time)
 
-    if record_trial:  # Deal with the last trial if still recording
+    if record_trial and (index - start_index > 5):  # Deal with the last trial if still recording
         smoothing_data = {}
         trial_len = len(range(start_index, index + 1))
         grid = np.linspace(1, trial_len, trial_len)
@@ -96,7 +97,7 @@ def smooth_data(df, columns, logger):
 
     # Ensure the smoothed data and valid data have the same indices
     valid_df[columns] = smoothed_data[columns]
-    valid_df['Elapsed Time'] = smoothed_data['Elapsed Time']
+    #valid_df['Elapsed Time'] = smoothed_data['Elapsed Time']
     
     # Calculate and log discard frames number and discard rate
     discarded_frames = total_frames - len(valid_df)
