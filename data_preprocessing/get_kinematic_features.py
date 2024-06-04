@@ -31,7 +31,7 @@ def get_displacement(raw_df, bodyparts):
         df[displacement_col] = displacements
     return df
 
-def get_velocity(raw_df, bodyparts, frame_rate, sigma=3):
+def get_velocity(raw_df, bodyparts, frame_rate):
     """
     Calculate the velocity for the specified body parts and add them to the DataFrame.
 

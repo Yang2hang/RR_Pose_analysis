@@ -24,16 +24,12 @@ def append_time_info(df, video_folder, filename, logger):
     # Read the CSV file into a DataFrame
     csv_df = pd.read_csv(csv_file_path)
 
-    # Extract the specified columns
-    columns_to_extract = ['time', 'rel_time']
-    extracted_df = csv_df[columns_to_extract]
-
     # Check if the number of rows match
-    if len(df) != len(extracted_df):
+    if len(df) != len(csv_df):
         logger.info("The number of rows in the input DataFrame and the CSV file do not match.")
         return df
 
     # Append the columns to the input DataFrame
-    appended_df = pd.concat([df, extracted_df], axis=1)
+    appended_df = pd.concat([df, csv_df], axis=1)
 
     return appended_df

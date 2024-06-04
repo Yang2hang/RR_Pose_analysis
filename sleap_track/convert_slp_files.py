@@ -30,4 +30,4 @@ def convert_slp_files(video_path, logger):
             except Exception as e:
                 logger.error(f"Unexpected error converting {filename}: {e}")
 
-    logger.info("---Conversion complete for all files.---")
+    logger.info(f"---Conversion complete for all files in {os.path.split(video_path)[1]}.---")
