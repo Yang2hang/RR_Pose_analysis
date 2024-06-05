@@ -13,6 +13,7 @@ def label_decision(df):
     Returns:
     pandas.DataFrame: A DataFrame with the decision for each timepoint.
     """
+    current_trial = None
     decisions = []
     decision = None
     last_decision = None
@@ -20,23 +21,26 @@ def label_decision(df):
     for index, row in df.iterrows():
         x = row['warped Head x']
         y = row['warped Head y']
+        trial = row['trial']
         
-        if (decision != None) and y > 90: # 0>_000_0 Start of a new trial
+        if current_trial != trial: # 0>_000_0 Start of a new trial
             decision = None
+            last_decision = None
+            current_trial = trial
 
-        elif (decision == None) and y < 46: # entering T-entry
-            decision = 'T-entry'
+        if (decision == None):
+            if y < 46: # entering T-entry
+                decision = 'T-Entry'
 
-        elif decision == 'T-entry':
-            if y > 50:  # 0_000_>0 (last + 1) frame of each trial
-                decision = None
-            elif x > 309:
-                decision = 'Acc'
+        if decision == 'T-Entry':
+            if x > 309:
+                decision = 'ACC'
             elif x < 282:
-                decision = 'Rej'
+                decision = 'REJ'
 
-        elif decision == 'Acc' and x < 282:
-            decision = 'quit'
+        if decision == 'ACC':
+            if x < 282:
+                decision = 'quit'
 
         # Only append the decision if it has changed, otherwise append None
         if decision != last_decision:

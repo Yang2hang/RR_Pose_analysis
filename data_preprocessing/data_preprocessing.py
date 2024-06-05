@@ -53,8 +53,8 @@ def data_preprocessing(root_video_folder):
                     
                     smoothed_df = smooth_data(raw_df, columns_to_smooth, logger)
                     
-                    labeled_t_df = label_trials(smoothed_df, filename)
-                    labeled_d_df = label_decision(labeled_t_df)
+                    #labeled_t_df = label_trials(smoothed_df, filename)
+                    labeled_d_df = label_decision(smoothed_df)
                     
                     displacement_df = get_displacement(labeled_d_df, bodyparts)
                     velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
@@ -68,7 +68,7 @@ def data_preprocessing(root_video_folder):
                         os.makedirs(output_subdir)
                     output_path = os.path.join(output_subdir, base + '_processed.csv')
                     
-                    acceleration_df.to_csv(output_path)
+                    acceleration_df.to_csv(output_path, index=False)
                     
                     logger.info(f'Preprocess done for: {base}')
 

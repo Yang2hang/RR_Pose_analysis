@@ -3,7 +3,7 @@ from logger import setup_logger
 from transform_coordinates import transform_coordinates
 from track_videos import track_videos
 from convert_slp_files import convert_slp_files
-from append_time_info import append_time_info
+from append_exp_info import append_exp_info
 
 def sleap_track(root_video_folder, model_path):
     '''
@@ -35,13 +35,13 @@ def sleap_track(root_video_folder, model_path):
                     # Warp all coordinates to align the videos from different cameras
                     df = transform_coordinates(input_h5, logger)
                     
-                    appended_df = append_time_info(df, subdir_path, filename, logger)
+                    appended_df = append_exp_info(df, subdir_path, filename, logger)
 
                     # Assign the output path
                     parts = filename.split('_')
                     base = '_'.join(parts[:3])
                     output_path = os.path.join(subdir_path, base + '_tracks_raw.csv')
                     
-                    appended_df.to_csv(output_path)
+                    appended_df.to_csv(output_path, index=False)
                     
                     logger.info(f'Preprocess done for: {base}')

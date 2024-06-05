@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-def append_time_info(df, video_folder, filename, logger):
+def append_exp_info(df, video_folder, filename, logger):
     """
     Appends specific columns from a CSV file to the input DataFrame.
 
