@@ -18,8 +18,8 @@ def get_displacement(raw_df, bodyparts):
         bodyparts = [bodyparts]
 
     for bodypart in bodyparts:
-        x_col = f"warped {bodypart} x"
-        y_col = f"warped {bodypart} y"
+        x_col = f"{bodypart} x"
+        y_col = f"{bodypart} y"
         displacement_col = f"{bodypart} displacement"
         displacements = [0]  # Initial displacement is 0
 

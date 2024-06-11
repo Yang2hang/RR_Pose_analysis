@@ -2,6 +2,10 @@ import os
 import shutil
 
 def reorganize_directory_structure(root):
+    '''
+    iterate the animal folders containing different files and saperate them into raw_track 
+    and intermediate_track_files folders in the root dir.
+    '''
     raw_track_dir = os.path.join(root, 'raw_track')
     sleap_intermediate_dir = os.path.join(root, 'intermediate_track_files')
     
