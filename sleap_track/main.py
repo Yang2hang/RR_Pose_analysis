@@ -5,5 +5,5 @@ from sleap_track import sleap_track
 # this program should run in sleap_env
 root_video_folder = '/home/wholebrain/sleap_models/20240402_RR_n24/Videos'
 model_path = '/home/wholebrain/sleap_models/20240402_RR_n24/models/v003.3_240430_165906.single_instance.n=732'
-
-sleap_track(root_video_folder, model_path)
+video_list = None
+sleap_track(root_video_folder, model_path, video_list)
