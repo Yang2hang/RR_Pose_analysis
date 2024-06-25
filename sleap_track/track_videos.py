@@ -33,4 +33,5 @@ def track_videos(video_path, model_path, logger, video_list=None):
         except Exception as e:
             logger.error(f"Unexpected error processing {filename}: {e}")
 
-    logger.info(f"---Tracking complete for all videos in {os.path.split(video_path)[1]}.---")
+    if videos_to_process:
+        logger.info(f"---Tracking complete for all videos in {os.path.split(video_path)[1]}.---")
