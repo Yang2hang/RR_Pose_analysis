@@ -41,34 +41,37 @@ def data_preprocessing(root_video_folder):
     ]
     
     # Walk through all subdirectories in the root video folder
-    for root, dirs, files in os.walk(root_video_folder):
-        for subdir in dirs:
-            
-            subdir_path = os.path.join(root, subdir)
-            
-            for filename in os.listdir(subdir_path):
-                if filename.endswith('_tracks_raw.csv'):
-                    raw_filepath = os.path.join(subdir_path, filename)
-                    raw_df = pd.read_csv(raw_filepath)
-                    
-                    smoothed_df = smooth_data(raw_df, columns_to_smooth, logger)
-                    
-                    #labeled_t_df = label_trials(smoothed_df, filename)
-                    labeled_d_df = label_decision(smoothed_df)
-                    
-                    displacement_df = get_displacement(labeled_d_df, bodyparts)
-                    velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
-                    acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
-                    
-                    # Assign the output path in the preprocessed_data folder
-                    parts = filename.split('_')
-                    base = '_'.join(parts[:3])
-                    output_subdir = os.path.join(preprocessed_data_folder, subdir)
-                    if not os.path.isdir(output_subdir):
-                        os.makedirs(output_subdir)
-                    output_path = os.path.join(output_subdir, base + '_processed.csv')
-                    
-                    acceleration_df.to_csv(output_path, index=False)
-                    
-                    logger.info(f'Preprocess done for: {base}')
+    for animal in os.listdir(root_video_folder):
+        animal_path = os.path.join(root_video_folder, animal)
+        if os.path.isdir(animal_path) and animal.startswith('RRM'):
+            for session in os.listdir(animal_path):
+                session_path = os.path.join(animal_path, session)
+                if os.path.isdir(session_path) and session.startswith('Day'):
+                    for file in os.listdir(session_path):
+                        if file.endswith('_tracks_raw.csv'):
+                            raw_filepath = os.path.join(session_path, file)
+                            raw_df = pd.read_csv(raw_filepath)
+                            
+                            # smooth the raw track data
+                            smoothed_df = smooth_data(raw_df, columns_to_smooth, logger)
+                            
+                            # label animal decisions according to coordinates
+                            labeled_d_df = label_decision(smoothed_df)
+                            
+                            # calculate displacement, velocity and acceleration
+                            displacement_df = get_displacement(labeled_d_df, bodyparts)
+                            velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
+                            acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
+                            
+                            # Assign the output path in the preprocessed_data folder
+                            parts = file.split('_')
+                            base = '_'.join(parts[:3])
+                            output_folder = os.path.join(preprocessed_data_folder, animal, session)
+                            if not os.path.isdir(output_folder):
+                                os.makedirs(output_folder)
+                            output_path = os.path.join(output_folder, base + '_processed.csv')
+                            
+                            acceleration_df.to_csv(output_path, index=False)
+                            
+                            logger.info(f'Preprocess done for: {base}')
 

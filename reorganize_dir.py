@@ -4,6 +4,15 @@ import shutil
 def reorganize_directory_structure(root):
     '''
     iterate the animal folders containing different files and saperate them into following folders in the root dir.
+    root/
+    ├── RRM030/
+    │   ├── Day150/
+    │   │   ├── _tracks_raw.csv
+            ├── .slp
+            ├── .h5
+            ├── ...
+    
+    the root folder should contain animal folders named like 'RRM030', animal
     raw_track folder: contain raw track csv files
     intermediate_track_files folder: contain predictions.slp and analysis.h5 files
     '''

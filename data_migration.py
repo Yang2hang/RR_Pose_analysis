@@ -20,6 +20,6 @@ def migrate_data(src_root, dst_root):
             # If it's a file, copy it to the new location
             shutil.copyfile(src_pname, dst_pname)
 
-src_path = ''
-dst_path = ''
+src_path = '/Users/yang/Documents/Wilbrecht_Lab/sleap_videos/intermediate_track_files'
+dst_path = '/Users/yang/Documents/Wilbrecht_Lab/sleap_videos 2/intermediate_track_files'
 migrate_data(src_path, dst_path)
