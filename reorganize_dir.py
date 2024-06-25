@@ -8,9 +8,9 @@ def reorganize_directory_structure(root):
     ├── RRM030/
     │   ├── Day150/
     │   │   ├── _tracks_raw.csv
-            ├── .slp
-            ├── .h5
-            ├── ...
+    │   │   ├── .slp
+    │   │   ├── .h5
+    │   │   ├── ...
     
     the root folder should contain animal folders named like 'RRM030', animal
     raw_track folder: contain raw track csv files
