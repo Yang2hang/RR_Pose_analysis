@@ -3,7 +3,14 @@ import pandas as pd
 
 def get_pose_mat_wide(pose_mat_long, frames_preserved):
     '''
-    Transpose the long pose mat into a wide one
+    Transpose the long pose mat into a wide one and calculate relevant features along the way.
+
+    Parameters:
+    pose_mat_long (pd.DataFrame): The long form DataFrame containing pose data.
+    frames_preserved (int): The number of frames to preserve for each trial.
+
+    Returns:
+    result_df (pd.DataFrame): The wide form DataFrame with preserved frames and trial-wise features.
     '''
     current_trial_num = np.nan
     current_sleap_decision = np.nan
