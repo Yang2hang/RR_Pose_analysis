@@ -13,13 +13,13 @@ def data_preprocessing(root_video_folder):
     a different folder in the root video folder).
     '''
     
-    # Create the preprocessed_data folder in the root video folder
-    preprocessed_data_folder = os.path.join(root_video_folder, 'preprocessed_data')
-    if not os.path.isdir(preprocessed_data_folder):
-        os.makedirs(preprocessed_data_folder)
+    # Create the processed_tracks folder in the root video folder
+    processed_tracks_folder = os.path.join(root_video_folder, 'processed_tracks')
+    if not os.path.isdir(processed_tracks_folder):
+        os.makedirs(processed_tracks_folder)
     
     # Logger setup
-    logger_location = os.path.join(preprocessed_data_folder, 'logger')
+    logger_location = os.path.join(processed_tracks_folder, 'logger')
     if not os.path.isdir(logger_location):
         os.makedirs(logger_location)
     logger = setup_logger(os.path.basename(root_video_folder), logger_location)
@@ -63,13 +63,13 @@ def data_preprocessing(root_video_folder):
                             velocity_df = get_velocity(displacement_df, bodyparts, frame_rate=30)
                             acceleration_df = get_acceleration(velocity_df, bodyparts, frame_rate=30)
                             
-                            # Assign the output path in the preprocessed_data folder
+                            # Assign the output path in the processed_tracks folder
                             parts = file.split('_')
                             base = '_'.join(parts[:3])
-                            output_folder = os.path.join(preprocessed_data_folder, animal, session)
+                            output_folder = os.path.join(processed_tracks_folder, animal, session)
                             if not os.path.isdir(output_folder):
                                 os.makedirs(output_folder)
-                            output_path = os.path.join(output_folder, base + '_processed.csv')
+                            output_path = os.path.join(output_folder, base + 'tracks_processed.csv')
                             
                             acceleration_df.to_csv(output_path, index=False)
                             

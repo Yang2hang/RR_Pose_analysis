@@ -3,7 +3,6 @@ import shutil
 
 
 def migrate_csv_files(source_root, target_root):
-    not_existing_files = []
 
     for animal_folder in os.listdir(source_root):
         source_animal_path = os.path.join(source_root, animal_folder)
