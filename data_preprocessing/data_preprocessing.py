@@ -8,8 +8,8 @@ from smooth_data import smooth_data
 
 def data_preprocessing(root_video_folder):
     '''
-    Access all _track_raw csv files, smooth the data and calculate the kinematic 
-    parameters and output a csv file for each file (all output files are stored in 
+    Access all '_tracks_raw' csv files, smooth the data and calculate the kinematic 
+    parameters and output a csv file for each raw track (all output files are stored in 
     a different folder in the root video folder).
     '''
     
@@ -40,7 +40,7 @@ def data_preprocessing(root_video_folder):
         'Tailhead'
     ]
     
-    # Walk through all subdirectories in the root video folder
+    # Iterate through animal folders and session folders in root folder
     for animal in os.listdir(root_video_folder):
         animal_path = os.path.join(root_video_folder, animal)
         if os.path.isdir(animal_path) and animal.startswith('RRM'):
@@ -69,7 +69,7 @@ def data_preprocessing(root_video_folder):
                             output_folder = os.path.join(processed_tracks_folder, animal, session)
                             if not os.path.isdir(output_folder):
                                 os.makedirs(output_folder)
-                            output_path = os.path.join(output_folder, base + 'tracks_processed.csv')
+                            output_path = os.path.join(output_folder, base + '_tracks_processed.csv')
                             
                             acceleration_df.to_csv(output_path, index=False)
                             

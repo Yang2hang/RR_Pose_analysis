@@ -26,7 +26,8 @@ def get_trial_profile(df, speed_threshold=500, speed_length=12, coord_length=13)
     for index, row in df.iterrows():
         trial_num = row['trial']
         decision = row['decision']
-        speed = row['Head velocity']
+        speed = np.sqrt(row['Head velocity x']**2 + row['Head velocity y']**2)
+
         head_x = row['warped Head x']
         head_y = row['warped Head y']
         

@@ -54,7 +54,7 @@ def get_pose_mat_wide(pose_mat_long, frames_preserved):
 
             animal = row['animal']
             session = row['session']
-            speed = row['Head velocity']
+            speed = np.sqrt(row['Head velocity x']**2 + row['Head velocity y']**2)
             restaurant = row['restaurant']
             head_x = row['warped Head x']
             head_y = row['warped Head y']
@@ -72,7 +72,7 @@ def get_pose_mat_wide(pose_mat_long, frames_preserved):
         else:  # Within trial
             animal = row['animal']
             session = row['session']
-            speed = row['Head velocity']
+            speed = np.sqrt(row['Head velocity x']**2 + row['Head velocity y']**2)
             restaurant = row['restaurant']
             head_x = row['warped Head x']
             head_y = row['warped Head y']
@@ -90,7 +90,7 @@ def get_pose_mat_wide(pose_mat_long, frames_preserved):
         if not pd.isna(bonsai_decision): # update current_consai_decision
             current_bonsai_decision = bonsai_decision
             
-        if pd.isna(current_sleap_decision) and (speed < 300):  # calculate straight walking speed and discard outliers
+        if pd.isna(current_sleap_decision) and (speed < 300) and (speed != 0):  # calculate straight walking speed and discard outliers
             sum_of_speed += speed
             speed_count += 1
 

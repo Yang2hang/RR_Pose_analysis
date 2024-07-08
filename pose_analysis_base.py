@@ -125,7 +125,7 @@ class TrialMat:
             trial_num = row['trial']
             animal = row['animal']
             session = row['session']
-            speed = row['Head velocity']
+            speed = np.sqrt(row['Head velocity x']**2 + row['Head velocity y']**2)
             restaurant = row['restaurant']
             head_x = row['warped Head x']
             head_y = row['warped Head y']
