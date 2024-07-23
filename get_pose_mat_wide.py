@@ -100,7 +100,7 @@ def get_pose_mat_wide(pose_mat_long, frames_preserved):
     other_df = pd.DataFrame({
         'sleap_decision': sleap_decision_list,
         'bonsai_decision': bonsai_decision_list,
-        'straight_walking_speed': straight_walking_speed_list,
+        'straight_walking_speed': straight_walking_speed_list, #
         'animal': animal_list,
         'session': session_list,
         'trial': trial_list,

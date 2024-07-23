@@ -60,19 +60,19 @@ def warp_coordinates(h5_file, logger):
         coords = df[coordinate_columns].values
         warp_matrix = get_warp_matrix(h5_file.split('/')[-1], logger)
         
-        srcTri = np.array([[0, 36], [0, 0], [41, 0]]).astype(np.float32)
-        dstTri = np.array([[0, 9.26], [0, 0], [11.2, 0]]).astype(np.float32)
-        cm_matrix = cv2.getAffineTransform(srcTri, dstTri)
+        # srcTri = np.array([[0, 36], [0, 0], [41, 0]]).astype(np.float32)
+        # dstTri = np.array([[0, 9.26], [0, 0], [11.2, 0]]).astype(np.float32)
+        # cm_matrix = cv2.getAffineTransform(srcTri, dstTri)
 
         # Apply affine transformation to each pair of coordinates
         transformed_coords = np.empty_like(coords)
         for i in range(0, coords.shape[1], 2): 
             points = coords[:, i:i+2]
             points = points.reshape(-1, 1, 2)
-            transformed_points = cv2.transform(points, warp_matrix)
-            coords_in_cm = cv2.transform(transformed_points, cm_matrix).reshape(-1, 2)
+            transformed_points = cv2.transform(points, warp_matrix).reshape(-1, 2)
+            # coords_in_cm = cv2.transform(transformed_points, cm_matrix).reshape(-1, 2)
 
-            transformed_coords[:, i:i+2] = coords_in_cm
+            transformed_coords[:, i:i+2] = transformed_points
 
         # Update the dataframe with the transformed and cropped coordinates
         df[warped_columns] = transformed_coords

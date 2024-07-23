@@ -2,9 +2,10 @@ import cv2
 import numpy as np
 import os
 
-input_path = 'RRM030_camR4_Day134_Turns.avi' # Update this with the path to your video
-base, extension = os.path.splitext(input_path)
-output_path = base + '_warped' + extension
+input_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/RRM026_Day172_R4_turns.avi' # Update this with the path to your video
+dirname, filename = os.path.split( input_path )
+base, extension = os.path.splitext(filename)
+output_path = os.path.join(dirname, base + '_warped' + extension)
 
 def transform_video(input_path, output_path, warp_matrix):
     # Open the input video
