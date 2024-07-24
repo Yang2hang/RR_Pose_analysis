@@ -11,18 +11,22 @@ def get_warp_matrix(filename, logger):
     '''
     try:
         if 'R1' in str(filename):
-            srcTri = np.array([[186.9, 178.3], [226, 178.3], [224, 137.6]]).astype(np.float32)
+            srcTri = np.array([[180.54, 140.24], [180.54, 176.96], [220.91, 176.35]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [74.9, 10], [74.9, 0.85]]).astype(np.float32)
         elif 'R2' in str(filename):
-            srcTri = np.array([[271.2, 128.3], [270.8, 95.6], [228.7, 95.3]]).astype(np.float32)
+            srcTri = np.array([[220.3, 127.8], [267.55, 127.01], [167.23, 95.22]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [52.5, 10], [52.5, 0.7]]).astype(np.float32)
         elif 'R3' in str(filename):
-            srcTri = np.array([[208.5, 53.5], [170, 54.5], [170.7, 89.5]]).astype(np.float32)
+            srcTri = np.array([[208.2, 93.7], [208.5, 50.34], [168.8, 50.6]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [52.9, 10], [52.9, 0.6]]).astype(np.float32)
         elif 'R4' in str(filename):
-            srcTri = np.array([[108.4, 119.3], [109.1, 158.5], [155.3, 159.2]]).astype(np.float32)
+            srcTri = np.array([[160.63, 114.85], [106.7, 114.9], [107.2, 154.7]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [52.7, 10], [52.7, 0.8]]).astype(np.float32)
         else:
             logger.error(f"Cannot find warp matrix for this file: {filename}")
             return None
 
-        dstTri = np.array([[350, 46], [350, 10], [309, 10]]).astype(np.float32)
+        dstTri = np.array([[309, 46], [350, 46], [350, 10]]).astype(np.float32)
         warp_matrix = cv2.getAffineTransform(srcTri, dstTri)
         return warp_matrix
     except Exception as e:
@@ -59,10 +63,6 @@ def warp_coordinates(h5_file, logger):
         # Extract the coordinates
         coords = df[coordinate_columns].values
         warp_matrix = get_warp_matrix(h5_file.split('/')[-1], logger)
-        
-        # srcTri = np.array([[0, 36], [0, 0], [41, 0]]).astype(np.float32)
-        # dstTri = np.array([[0, 9.26], [0, 0], [11.2, 0]]).astype(np.float32)
-        # cm_matrix = cv2.getAffineTransform(srcTri, dstTri)
 
         # Apply affine transformation to each pair of coordinates
         transformed_coords = np.empty_like(coords)
@@ -70,7 +70,6 @@ def warp_coordinates(h5_file, logger):
             points = coords[:, i:i+2]
             points = points.reshape(-1, 1, 2)
             transformed_points = cv2.transform(points, warp_matrix).reshape(-1, 2)
-            # coords_in_cm = cv2.transform(transformed_points, cm_matrix).reshape(-1, 2)
 
             transformed_coords[:, i:i+2] = transformed_points
 
