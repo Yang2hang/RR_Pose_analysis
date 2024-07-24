@@ -30,7 +30,7 @@ def label_decision(df):
 
         if (decision == None):
             if y < 46: # entering T-entry
-                decision = 'T-Entry'
+                decision = 'T_Entry'
 
         if decision == 'T-entry':
             if x > 309:

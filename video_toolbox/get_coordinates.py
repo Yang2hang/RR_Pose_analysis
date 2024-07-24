@@ -2,8 +2,8 @@ import cv2
 import matplotlib.pyplot as plt
 import os
 
-folder_path = '/Users/yang/Documents/Wilbrecht_Lab/Sleap_video'
-video = 'RRM030_camR2_Day134_Turns.avi'# enter your video path here
+folder_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video'
+video = 'RRM026_Day151_R4_turns.avi'# enter your video path here
 video_path = os.path.join(folder_path, video)
 
 def show_frame(video_path, frame_number=0):
@@ -34,4 +34,4 @@ def show_frame(video_path, frame_number=0):
     cap.release()
 
 # Path to your video
-show_frame(video_path, frame_number=410)
+show_frame(video_path, frame_number=300)

@@ -12,17 +12,13 @@ root_folder/
 ## Pipeline
 ### In sleap environment:
 1. Set the correct root_video_folder and model path. Then run sleap_track/main.py.
-2. Set the root_directory (same as the folder in sleap_track) and then run reorganize_dir.py to sort the track results into different folders.
+2. Set the root_directory (same as the folder in sleap_track) and then run reorganize_dir.py to sort the intermidiate track results into different folders.
 
 ### In another environment with updated scipy:
 1. Set the raw_track folder created by sleap_track.py as the input. Then run data_preprocessing/main.py. The processed data is in raw_track/processed_tracks folder.
 2. Run integrate_super_df.ipynb. This will integrate all tracks_processed.csv files into one super DataFrame:'combined_df', and save it in processed_data folder for further analysis.
 
-### Data analysis
-1. Run data_analysis/main.ipynb
-2. Run trajectory_clustering.ipynb
+### Data cleaning
+1. 
 
 ### Helpful tools:
-copy_folder.py: use this script to copy folders to the server.
-
-upload_to_server: use this script to migrate csv files to folders on the server. It will automatically put the csv file to the correct animal and session folder on the server.
