@@ -26,7 +26,6 @@ def get_warp_matrix(filename, logger):
             logger.error(f"Cannot find warp matrix for this file: {filename}")
             return None
 
-        dstTri = np.array([[309, 46], [350, 46], [350, 10]]).astype(np.float32)
         warp_matrix = cv2.getAffineTransform(srcTri, dstTri)
         return warp_matrix
     except Exception as e:
