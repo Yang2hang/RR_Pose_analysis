@@ -34,5 +34,5 @@ def reorganize_directory_structure(root):
                                 os.makedirs(new_session_dir)
                             shutil.move(file_path, os.path.join(new_session_dir, file))
 
-root_directory = r'/Users/yang/Documents/Wilbrecht_Lab/sleap_video'
+root_directory = r'/media/data/Sleap/sleap_videos'
 reorganize_directory_structure(root_directory)
