@@ -1,4 +1,8 @@
 from rr_sleap_track.sleap_track import sleap_track
+import sys
+import os
+
+# sys.path.append(os.path.join(os.getcwd().split(os.path.sep)))
 
 # make sure the video name is RRM0xx_Dayxxx_Rx_turns.avi
 # this program should run in sleap_env

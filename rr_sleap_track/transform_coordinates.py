@@ -18,7 +18,7 @@ def get_warp_matrix(filename, logger=None):
             srcTri = np.array([[180.54, 140.24], [180.54, 176.96], [220.91, 176.35]]).astype(np.float32)
             dstTri = np.array([[640, 100], [749, 100], [749, 8.5]]).astype(np.float32)
         elif 'R2' in str(filename):
-            srcTri = np.array([[220.3, 127.8], [267.55, 127.01], [167.23, 95.22]]).astype(np.float32)
+            srcTri = np.array([[220.3, 127.8], [267.55, 127.01], [267.23, 95.22]]).astype(np.float32)
             dstTri = np.array([[640, 100], [755, 100], [755, 7]]).astype(np.float32)
         elif 'R3' in str(filename):
             srcTri = np.array([[208.2, 93.7], [208.5, 50.34], [168.8, 50.6]]).astype(np.float32)
