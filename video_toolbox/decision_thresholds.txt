@@ -29,7 +29,7 @@
   CV.Line(trajectory,Point(305,233),Point(309,312),Acceptcolor,thickness)
   CV.Line(trajectory,Point(309,312),Point(216,311),Acceptcolor,thickness)
 
-#R2
+#R1
  # Draw Hall 2
   CV.Line(trajectory,Point(371,175),Point(441,176),Hallcolor,thickness)
   CV.Line(trajectory,Point(441,176),Point(442,211),Hallcolor,thickness)
@@ -60,7 +60,7 @@
   CV.Line(trajectory,Point(441,335),Point(369,340),Acceptcolor,thickness)
   CV.Line(trajectory,Point(369,340),Point(368,329),Acceptcolor,thickness)
 
-#R3
+#R2
  # Draw Hall 3
   CV.Line(trajectory,Point(358,246),Point(357,184),Hallcolor,thickness)
   CV.Line(trajectory,Point(357,184),Point(397,184),Hallcolor,thickness)
@@ -92,7 +92,7 @@
   CV.Line(trajectory,Point(528,255),Point(539,253),Acceptcolor,thickness)
   CV.Line(trajectory,Point(539,253),Point(535,189),Acceptcolor,thickness)
 
-#R4
+#R3
  # Draw Hall 4
   CV.Line(trajectory,Point(339,262),Point(341,226),Hallcolor,thickness)
   CV.Line(trajectory,Point(341,226),Point(420,228),Hallcolor,thickness)

@@ -1,9 +1,9 @@
 import os
-from logger import setup_logger 
-from transform_coordinates import warp_coordinates
-from track_videos import track_videos
-from convert_slp_files import convert_slp_files
-from append_exp_info import append_exp_info
+from rr_sleap_track.logger import setup_logger 
+from rr_sleap_track.transform_coordinates import warp_coordinates
+from rr_sleap_track.track_videos import track_videos
+from rr_sleap_track.convert_slp_files import convert_slp_files
+from rr_sleap_track.append_exp_info import append_exp_info
 
 def sleap_track(video_root, model_path, output_root_folder, video_list=None):
     '''

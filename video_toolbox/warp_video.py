@@ -1,48 +1,33 @@
 import cv2
 import numpy as np
 import os
+from rr_sleap_track.transform_coordinates import get_warp_matrix
 
-input_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/RRM026_Day172_R4_turns.avi' # Update this with the path to your video
-dirname, filename = os.path.split( input_path )
+input_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/RRM026_Day151_R1_turns.avi' # Update this with the path to your video
+dirname, filename = os.path.split(input_path)
 base, extension = os.path.splitext(filename)
-output_path = os.path.join(dirname, base + '_warped' + extension)
+output_image_path = os.path.join(dirname, base + '_warped_frame.jpg')
 
-def transform_video(input_path, output_path, warp_matrix):
+def extract_and_warp_frame(input_path, output_image_path, warp_matrix):
     # Open the input video
     cap = cv2.VideoCapture(input_path)
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    width, height = (176, 145)
     
-    # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        
-        # Apply the affine transformation
-        transformed_frame = cv2.warpAffine(frame, warp_matrix, (width, height))
-        
-        # Write the transformed frame to the output video
-        out.write(transformed_frame)
+    # Read the first frame
+    ret, frame = cap.read()
+    if not ret:
+        print("Failed to read the frame from the video.")
+        return
     
-    # Release everything when the job is finished
+    # Apply the affine transformation
+    height, width = (60, 90)
+    transformed_frame = cv2.warpAffine(frame, warp_matrix, (width, height))
+    
+    # Save the transformed frame as an image
+    cv2.imwrite(output_image_path, transformed_frame)
+    
+    # Release the video capture object
     cap.release()
-    out.release()
+    print(f"Transformed frame saved as {output_image_path}")
 
-if 'R1' in input_path:
-    srcTri = np.array( [[186.9, 178.3], [226, 178.3], [224, 137.6]] ).astype(np.float32)
-elif 'R2' in input_path:
-    srcTri = np.array( [[271.2, 128.3], [270.8, 95.6], [228.7, 95.3]] ).astype(np.float32)
-elif 'R3' in input_path:
-    srcTri = np.array( [[208.5, 53.5], [170, 54.5], [170.7, 89.5]] ).astype(np.float32)
-elif 'R4' in input_path:
-    srcTri = np.array( [[108.4, 119.3], [109.1, 158.5], [155.3, 159.2]] ).astype(np.float32)
-else:
-    print('cannot identify camera')
-
-dstTri = np.array( [[166, 46], [166, 10], [125, 10]] ).astype(np.float32)
-warp_mat = cv2.getAffineTransform(srcTri, dstTri)
-
-transform_video(input_path, output_path, warp_mat)
+warp_matrix = get_warp_matrix(input_path.split('/')[-1], logger=None)
+extract_and_warp_frame(input_path, output_image_path, warp_matrix)

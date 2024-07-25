@@ -2,26 +2,30 @@ import cv2
 import numpy as np
 import pandas as pd
 import os
-from h5_preprocessing import h5_preprocessing
+from rr_sleap_track.h5_preprocessing import h5_preprocessing
 
-def get_warp_matrix(filename, logger):
+
+def get_warp_matrix(filename, logger=None):
     '''
     Define warp matrix by the key points coordinates according to file names (camera location).
     3 key points are 3 corners of the restaurants.
+    
+    srcTri is the pixel coords
+    dstTri is the real physical distance (unit: mm)
     '''
     try:
         if 'R1' in str(filename):
             srcTri = np.array([[180.54, 140.24], [180.54, 176.96], [220.91, 176.35]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [74.9, 10], [74.9, 0.85]]).astype(np.float32)
+            dstTri = np.array([[640, 100], [749, 100], [749, 8.5]]).astype(np.float32)
         elif 'R2' in str(filename):
             srcTri = np.array([[220.3, 127.8], [267.55, 127.01], [167.23, 95.22]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [75.5, 10], [75.5, 0.7]]).astype(np.float32)
+            dstTri = np.array([[640, 100], [755, 100], [755, 7]]).astype(np.float32)
         elif 'R3' in str(filename):
             srcTri = np.array([[208.2, 93.7], [208.5, 50.34], [168.8, 50.6]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [75.1, 10], [75.1, 0.6]]).astype(np.float32)
+            dstTri = np.array([[640, 100], [751, 100], [751, 6]]).astype(np.float32)
         elif 'R4' in str(filename):
             srcTri = np.array([[160.63, 114.85], [106.7, 114.9], [107.2, 154.7]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [75.3, 10], [75.3, 0.8]]).astype(np.float32)
+            dstTri = np.array([[640, 100], [753, 100], [753, 8]]).astype(np.float32)
         else:
             logger.error(f"Cannot find warp matrix for this file: {filename}")
             return None
@@ -29,7 +33,8 @@ def get_warp_matrix(filename, logger):
         warp_matrix = cv2.getAffineTransform(srcTri, dstTri)
         return warp_matrix
     except Exception as e:
-        logger.error(f"Error calculating warp matrix for {filename}: {e}")
+        if logger:
+            logger.error(f"Error calculating warp matrix for {filename}: {e}")
         raise
 
 def warp_coordinates(h5_file, logger):

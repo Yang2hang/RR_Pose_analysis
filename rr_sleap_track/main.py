@@ -1,4 +1,4 @@
-from sleap_track import sleap_track
+from rr_sleap_track.sleap_track import sleap_track
 
 # make sure the video name is RRM0xx_Dayxxx_Rx_turns.avi
 # this program should run in sleap_env
