@@ -22,21 +22,21 @@ def label_decision(df, filename, logger):
     
     try:
         if 'R1' in str(filename):
-            t_entry_threshold = 48
-            rej_threshold = 278
-            acc_threshold = 314
+            t_entry_threshold = 10
+            rej_threshold = 54
+            acc_threshold = 65
         elif 'R2' in str(filename):
-            t_entry_threshold = 44
-            rej_threshold = 279
-            acc_threshold = 308
+            t_entry_threshold = 9.5
+            rej_threshold = 61
+            acc_threshold = 68
         elif 'R3' in str(filename):
-            t_entry_threshold = 49
-            rej_threshold = 279
-            acc_threshold = 306
+            t_entry_threshold = 11
+            rej_threshold = 63
+            acc_threshold = 69
         elif 'R4' in str(filename):
-            t_entry_threshold = 50
-            rej_threshold = 276
-            acc_threshold = 311
+            t_entry_threshold = 10
+            rej_threshold = 62
+            acc_threshold = 70
         else:
             logger.error(f"Cannot find decision thresholds for this file: {filename}")
     except Exception as e:

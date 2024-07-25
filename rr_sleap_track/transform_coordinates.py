@@ -15,13 +15,13 @@ def get_warp_matrix(filename, logger):
             dstTri = np.array([[64, 10], [74.9, 10], [74.9, 0.85]]).astype(np.float32)
         elif 'R2' in str(filename):
             srcTri = np.array([[220.3, 127.8], [267.55, 127.01], [167.23, 95.22]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [52.5, 10], [52.5, 0.7]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [75.5, 10], [75.5, 0.7]]).astype(np.float32)
         elif 'R3' in str(filename):
             srcTri = np.array([[208.2, 93.7], [208.5, 50.34], [168.8, 50.6]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [52.9, 10], [52.9, 0.6]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [75.1, 10], [75.1, 0.6]]).astype(np.float32)
         elif 'R4' in str(filename):
             srcTri = np.array([[160.63, 114.85], [106.7, 114.9], [107.2, 154.7]]).astype(np.float32)
-            dstTri = np.array([[64, 10], [52.7, 10], [52.7, 0.8]]).astype(np.float32)
+            dstTri = np.array([[64, 10], [75.3, 10], [75.3, 0.8]]).astype(np.float32)
         else:
             logger.error(f"Cannot find warp matrix for this file: {filename}")
             return None
