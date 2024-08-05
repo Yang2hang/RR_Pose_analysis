@@ -3,7 +3,7 @@ import pandas as pd
 from logger import setup_logger
 from label_decision import label_decision
 from smooth_data import smooth_data
-from get_kinematic_features import get_subjective_angular_velocity
+from get_kinematic_features import get_kinematic_features
 
 def track_processing(track_root):
     '''
@@ -56,7 +56,7 @@ def track_processing(track_root):
                             
                             # label animal decisions according to coordinates
                             labeled_df = label_decision(smoothed_df, file, logger)
-                            velocity_df = labeled_df.groupby('trial', group_keys=True).apply(get_subjective_angular_velocity, sr=30).reset_index(drop=True)
+                            velocity_df = labeled_df.groupby('trial', group_keys=True).apply(get_kinematic_features, sr=30).reset_index(drop=True)
 
                             # Assign the output path in the processed_tracks folder
                             parts = file.split('_')

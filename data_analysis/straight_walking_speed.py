@@ -17,7 +17,7 @@ def straight_walking_speed(df, speed_threshold=500):
 
     for index, row in df.iterrows():
         decision = row['decision']
-        speed = np.sqrt(row['Head velocity x']**2 + row['Head velocity y']**2)
+        speed = np.sqrt(row['Head_vx']**2 + row['Head_vy']**2)
 
 
         if decision == 'T-entry' and in_trial:

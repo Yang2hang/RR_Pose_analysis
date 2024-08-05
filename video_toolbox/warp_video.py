@@ -3,7 +3,7 @@ import numpy as np
 import os
 from rr_sleap_track.transform_coordinates import get_warp_matrix
 
-input_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/RRM026_Day151_R2_turns.avi' # Update this with the path to your video
+input_path = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/RRM026_Day151_R4_turns.avi' # Update this with the path to your video
 dirname, filename = os.path.split(input_path)
 base, extension = os.path.splitext(filename)
 output_image_path = os.path.join(dirname, base + '_warped_frame.png')
