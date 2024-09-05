@@ -16,9 +16,10 @@ root_folder/
 
 ### In another environment with updated scipy:
 1. Set the raw_track folder created by sleap_track.py as the input. Then run data_preprocessing/main.py. The processed data is in raw_track/processed_tracks folder.
-2. Run integrate_super_df.ipynb. This will integrate all tracks_processed.csv files into one super DataFrame:'combined_df', and save it in processed_data folder for further analysis.
+2. Run combine_raw_tracks.py and this will integrate all tracks_processed.csv files into one super DataFrame:'combined_df', and save it in processed_data folder for further analysis.
 
 ### Data cleaning
-1. 
+1. get_df_wide.ipynb: data cleaning and calculate trial wise features -> trial_df
+2. trajectory_clustering.ipynb: do dim red and clustering on tracks -> cluster_df
 
 ### Helpful tools:

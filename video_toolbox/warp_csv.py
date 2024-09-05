@@ -40,6 +40,6 @@ def warp_coordinates(csv_file):
     
     return df
 
-csv = '/Users/yang/Documents/Wilbrecht_Lab/code/RR_Pose_analysis/video_toolbox/decision_thresholds.csv'
+csv = '/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/decision_thresholds.csv'
 output_df = warp_coordinates(csv)
-output_df.to_csv('/Users/yang/Documents/Wilbrecht_Lab/code/RR_Pose_analysis/video_toolbox/decision_thresholds.csv')
+output_df.to_csv('/Users/yang/Documents/Wilbrecht_Lab/data/sleap_video/decision_thresholds.csv')
