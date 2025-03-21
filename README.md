@@ -1,14 +1,6 @@
 # RR_Pose_analysis
 Restaurant Row Project in Wilbrecht Lab
 Note: The folder_path parameter in the following program should be set to the root folder which contains animal folders. animal folder should contain session folders.
-root_folder/
-    ├── RRM030/
-    │   ├── Day150/
-    │   │   ├── _tracks_raw.csv
-    │   │   ├── .slp
-    │   │   ├── .h5
-    │   │   ├── ...
-    ├──RRM...
 ## Pipeline
 ### In sleap environment:
 1. Set the correct root_video_folder and model path. Then run sleap_track/main.py.
@@ -21,5 +13,3 @@ root_folder/
 ### Data cleaning
 1. get_df_wide.ipynb: data cleaning and calculate trial wise features -> trial_df
 2. trajectory_clustering.ipynb: do dim red and clustering on tracks -> cluster_df
-
-### Helpful tools:
